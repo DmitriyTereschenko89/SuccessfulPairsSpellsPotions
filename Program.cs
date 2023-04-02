@@ -4,15 +4,14 @@
     {
         public class SuccessfulPairsSpellsPotions
         {
-
-            private int LowerBound(int[] potions, int key)
+            private int LowerBound(int[] potions, int spellPotion)
             {
                 int leftIdx = 0;
                 int rightIdx = potions.Length;
-                while(leftIdx < rightIdx)
+                while (leftIdx < rightIdx)
                 {
                     int middleIdx = leftIdx + (rightIdx - leftIdx) / 2;
-                    if (potions[middleIdx] < key)
+                    if (potions[middleIdx] < spellPotion)
                     {
                         leftIdx = middleIdx + 1;
                     }
@@ -29,16 +28,16 @@
                 int n = potions.Length;
                 int[] successfulPairs = new int[spells.Length];
                 Array.Sort(potions);
-                for(int i = 0; i < spells.Length; ++i)
+                for (int i = 0; i < spells.Length; ++i)
                 {
-                    long spellPotion = (long)Math.Ceiling((1.0 * success) / spells[i]);
-                    if (spellPotion > potions[n - 1])
+                    long spellPotions = (long)Math.Ceiling((1.0 * success) / spells[i]);
+                    if (spellPotions > potions[n - 1])
                     {
                         successfulPairs[i] = 0;
                         continue;
                     }
-                    int minSpellPotionBound = LowerBound(potions, (int)spellPotion);
-                    successfulPairs[i] = n - minSpellPotionBound;
+                    int lowerBound = LowerBound(potions, (int)spellPotions);
+                    successfulPairs[i] = n - lowerBound;
                 }
                 return successfulPairs;
             }
